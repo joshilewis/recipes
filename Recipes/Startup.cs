@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
+using Microsoft.Azure.Documents;
+using Microsoft.Azure.Documents.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,7 +24,14 @@ namespace Recipes
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var serviceEndpoint = new Uri(Configuration["cosmos:endpointUri"]);
+            var authKeyOrResourceToken = Configuration["cosmos:key"];
+            var client = new DocumentClient(serviceEndpoint, authKeyOrResourceToken);
+            client.CreateDatabaseIfNotExistsAsync(new Database {Id = "recipes_demo"});
+            client.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri("recipes_demo"),
+                new DocumentCollection {Id = "recipes"});
             services.AddMvc();
+            services.AddSingleton<IDocumentClient>(client);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +57,10 @@ namespace Recipes
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
+                    name: "api",
+                    template: "api/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",

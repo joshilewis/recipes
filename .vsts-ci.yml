@@ -13,8 +13,20 @@ steps:
     arguments: --configuration release
   displayName: dotnet build
 
+- task: Npm@1
+  displayName: "installing angular-cli"
+  inputs:
+    command: "custom"
+    verbose: "false"
+    customCommand: "install @angular/cli@1.6.1 -g"
+
+- task: Npm@1
+  displayName: npm install
+  inputs:
+    command: install
+    
 - task: CmdLine@1
-  displayName: "run tests: ng test"
+  displayName: "angular build"
   inputs:
     filename: "ng"
     arguments: "build"

@@ -16,8 +16,8 @@ steps:
 - task: CmdLine@1
   displayName: "run tests: ng test"
   inputs:
-  filename: "ng"
-  arguments: "build"
+    filename: "ng"
+    arguments: "build"
 
 - task: dotNetCoreCLI@1
   inputs:

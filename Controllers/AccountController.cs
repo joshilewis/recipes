@@ -34,14 +34,15 @@ namespace recipes.Controllers
     }
 
     [HttpPost]
-    public async Task<object> Login([FromBody] LoginDto model)
+    public async Task<object> SignIn([FromBody] LoginDto model)
     {
       var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
       if (!result.Succeeded) throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
 
       var appUser = await userManager.FindByEmailAsync(model.Email);
-      return GenerateJwtToken(model.Email, appUser);
+      var token = GenerateJwtToken(model.Email, appUser);
+      return new {token};
     }
 
     [HttpPost]

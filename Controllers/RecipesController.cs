@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
@@ -21,6 +22,7 @@ namespace recipes.Controllers
             this.client = client;
         }
 
+        //[Authorize]
         [HttpGet]
         public async Task<IEnumerable<Recipe>> GetAsync()
         {

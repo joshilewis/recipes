@@ -1,16 +1,15 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppComponent } from "./app.component";
 import { AppNavbarComponent } from "./app-navbar/app-navbar.component";
 import { RecipesListComponent } from "./recipes-list/recipes-list.component";
 import { RecipeService } from "./client/recipe.service";
-import { HttpClientModule } from "@angular/common/http";
+import { InfraModule } from "./infra/infra.module";
 
 @NgModule({
   declarations: [AppComponent, AppNavbarComponent, RecipesListComponent],
-  imports: [BrowserModule, HttpClientModule, NgbModule.forRoot()],
+  imports: [BrowserModule, InfraModule],
   providers: [RecipeService],
   bootstrap: [AppComponent]
 })

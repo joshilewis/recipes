@@ -14,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace recipes.Controllers
 {
+  //Based on https://medium.com/@lugrugzo/asp-net-core-2-0-webapi-jwt-authentication-with-identity-mysql-3698eeba6ff8
   [Route("api/[controller]/[action]")]
   public class AccountController : Controller
   {

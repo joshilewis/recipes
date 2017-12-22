@@ -8,7 +8,7 @@ using Recipes;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace recipe2.Controllers
+namespace recipes.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]

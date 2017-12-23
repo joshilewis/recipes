@@ -41,8 +41,7 @@ namespace recipes.Controllers
       if (!result.Succeeded) throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
 
       var appUser = await userManager.FindByEmailAsync(model.Email);
-      var token = GenerateJwtToken(model.Email, appUser);
-      return new {token};
+      return new {token = GenerateJwtToken(model.Email, appUser)};
     }
 
     [HttpPost]
@@ -58,7 +57,7 @@ namespace recipes.Controllers
       if (!result.Succeeded) throw new ApplicationException("UNKNOWN_ERROR");
 
       await signInManager.SignInAsync(user, false);
-      return GenerateJwtToken(model.Email, user);
+      return new {token = GenerateJwtToken(model.Email, user)};
     }
 
     private object GenerateJwtToken(string email, DocumentDbIdentityUser user)

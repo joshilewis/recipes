@@ -11,27 +11,29 @@ export class AuthService {
     private readonly httpClient: HttpClient,
     private readonly persistenceService: PersistenceService
   ) {
+    this.token = null;
     const token = persistenceService.get("token", StorageType.LOCAL);
     if (token) {
       this.token = token;
     }
   }
 
-  signIn() {
+  signIn(email: string, password: string) {
     if (this.token) {
       return;
     }
 
     this.httpClient
       .post("api/account/signin", {
-        email: "user@example.com",
-        password: "Password1!"
+        email: email,
+        password: password
       })
       .subscribe(
         res => {
           this.persistenceService.set("token", res.token, {
             type: StorageType.LOCAL
           });
+          this.token = res.token;
         },
         err => {
           console.log(err);

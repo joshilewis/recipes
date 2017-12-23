@@ -34,4 +34,11 @@
       </form>
     </div>
   </div>
+  <div *ngIf="signinError">
+    <p>
+      <ngb-alert type="danger" (close)="closeAlert()">
+      There was an error signing in, please try again
+      </ngb-alert>
+    </p>
+  </div>
 </div>

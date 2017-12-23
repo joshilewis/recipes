@@ -4,9 +4,13 @@
     <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="dist\**" />
     <Compile Remove="wwwroot\**" />
+    <Content Remove="dist\**" />
     <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="dist\**" />
     <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="dist\**" />
     <None Remove="wwwroot\**" />
   </ItemGroup>
   <ItemGroup>

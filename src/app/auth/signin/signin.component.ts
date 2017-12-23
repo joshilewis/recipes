@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { SignInDto } from "./signinDto";
 import { AuthService } from "../../infra/auth.service";
-import { NgbActiveModal } from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbAlert } from "@ng-bootstrap/ng-bootstrap";
 import {
   FormGroup,
   FormControl,
@@ -26,6 +26,7 @@ export class SigninComponent implements OnInit {
       Validators.minLength(8)
     ])
   });
+  signinError: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -46,8 +47,15 @@ export class SigninComponent implements OnInit {
   signIn() {
     if (this.signinForm.valid) {
       this.signinDto = this.signinForm.value;
-      this.authService.signIn(this.signinDto.email, this.signinDto.password);
-      this.activeModal.close();
+      this.authService.signIn(this.signinDto.email, this.signinDto.password)
+        .then(x => this.activeModal.close())
+        .catch(x => this.signinError = true);
+
     }
+  }
+
+  closeAlert() {
+    this.signinError = false;
+    this.signinForm.get('password').reset();
   }
 }

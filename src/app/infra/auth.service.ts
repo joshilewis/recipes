@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { PersistenceService } from "angular-persistence/src/services/persistence.service";
 import { StorageType } from "angular-persistence/src/constants/persistence.storage_type";
+import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class AuthService {
@@ -18,9 +19,10 @@ export class AuthService {
     }
   }
 
-  signIn(email: string, password: string) {
-    if (this.token) {
-      return;
+  signIn(email: string, password: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      if (this.token) {
+        return resolve(true);
     }
 
     this.httpClient
@@ -29,17 +31,20 @@ export class AuthService {
         password: password
       })
       .subscribe(
-        res => {
-          this.persistenceService.set("token", res.token, {
-            type: StorageType.LOCAL
+      res => {
+        const result = <TokenResult>res;
+          this.persistenceService.set("token", result.token, {
+            type: StorageType.LOCAL 
           });
-          this.token = res.token;
-        },
+          this.token = result.token;
+        return resolve(true);
+      },
         err => {
           console.log(err);
+          return reject();
         }
       );
-  }
+    });  }
 
   signOut() {
     this.token = null;

@@ -46,7 +46,35 @@ export class AuthService {
       );
     });  }
 
-  signOut() {
+  register(email: string, password: string): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      if (this.token) {
+        return resolve(true);
+      }
+
+      this.httpClient
+        .post("api/account/register", {
+          email: email,
+          password: password
+        })
+        .subscribe(
+          res => {
+            const result = <TokenResult>res;
+            this.persistenceService.set("token", result.token, {
+              type: StorageType.LOCAL
+            });
+            this.token = result.token;
+            return resolve(true);
+          },
+          err => {
+            console.log(err);
+            return reject();
+          }
+        );
+    });
+  }
+
+    signOut() {
     this.token = null;
     this.persistenceService.remove("token", StorageType.LOCAL);
   }

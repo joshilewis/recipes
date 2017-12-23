@@ -11,57 +11,61 @@ using Recipes;
 
 namespace recipes.Controllers
 {
-    [Produces("application/json")]
-    [Route("api/[controller]")]
-    public class RecipesController : Controller
+  [Produces("application/json")]
+  [Route("api/[controller]")]
+  public class RecipesController : Controller
+  {
+    private readonly IDocumentClient client;
+
+    public RecipesController(IDocumentClient client)
     {
-        private readonly IDocumentClient client;
-
-        public RecipesController(IDocumentClient client)
-        {
-            this.client = client;
-        }
-
-        //[Authorize]
-        [HttpGet]
-        public async Task<IEnumerable<Recipe>> GetAsync()
-        {
-            var query = client.CreateDocumentQuery<Recipe>(
-                    UriFactory.CreateDocumentCollectionUri("recipes_demo", "recipes"))
-                    .AsDocumentQuery();
-
-            List<Recipe> results = new List<Recipe>();
-            while (query.HasMoreResults)
-            {
-                results.AddRange(await query.ExecuteNextAsync<Recipe>());
-            }
-
-            return results;
-        }
-
-        [HttpGet("{id}")]
-        public string GetAsync(int id)
-        {
-            return "value";
-        }
-
-        [HttpPost]
-        public async void Post(Recipe recipe)
-        {
-            await client.CreateDocumentAsync(
-                UriFactory.CreateDocumentCollectionUri("recipes_demo", "recipes"), recipe);
-        }
-
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+      this.client = client;
     }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<IEnumerable<Recipe>> GetAsync()
+    {
+      var query = client.CreateDocumentQuery<Recipe>(
+          UriFactory.CreateDocumentCollectionUri("recipes_demo", "recipes"))
+        .AsDocumentQuery();
+
+      List<Recipe> results = new List<Recipe>();
+      while (query.HasMoreResults)
+      {
+        results.AddRange(await query.ExecuteNextAsync<Recipe>());
+      }
+
+      return results;
+    }
+
+    [Authorize]
+    [HttpGet("{id}")]
+    public string GetAsync(int id)
+    {
+      return "value";
+    }
+
+    [Authorize]
+    [HttpPost]
+    public async void Post(Recipe recipe)
+    {
+      await client.CreateDocumentAsync(
+        UriFactory.CreateDocumentCollectionUri("recipes_demo", "recipes"), recipe);
+    }
+
+    // PUT api/<controller>/5
+    [Authorize]
+    [HttpPut("{id}")]
+    public void Put(int id, [FromBody] string value)
+    {
+    }
+
+    // DELETE api/<controller>/5
+    [Authorize]
+    [HttpDelete("{id}")]
+    public void Delete(int id)
+    {
+    }
+  }
 }

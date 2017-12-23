@@ -1,10 +1,15 @@
-<div class="card-deck">
-  <div class="card text-primary border-primary mb-3" style="width: 20rem;" *ngFor="let recipe of recipeClient.recipes | async">
-    <div class="card-body">
-      <h4 class="card-title">{{recipe.title}}</h4>
-      <p class="card-text">{{recipe.description}}</p>
-      <a href="#" class="card-link">Edit</a>
-      <a href="#" class="card-link">Delete</a>
+<div *ngIf="authService.token === null">
+ Please sign in to see your recipes
+</div>
+<div *ngIf="authService.token !== null">
+  <div class="card-deck">
+    <div class="card text-primary border-primary mb-3" style="width: 20rem;" *ngFor="let recipe of recipeClient.recipes | async">
+      <div class="card-body">
+        <h4 class="card-title">{{recipe.title}}</h4>
+        <p class="card-text">{{recipe.description}}</p>
+        <a href="#" class="card-link">Edit</a>
+        <a href="#" class="card-link">Delete</a>
+      </div>
     </div>
   </div>
 </div>

@@ -85,7 +85,6 @@ namespace recipe2
         app.UseStaticFiles();
         app.UseAuthentication();
         app.UseMvc();
-        app.UseMvc();
       }
     }
 }

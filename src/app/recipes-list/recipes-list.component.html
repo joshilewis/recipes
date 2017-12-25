@@ -2,11 +2,16 @@
  Please sign in to see your recipes
 </div>
 <div *ngIf="authService.token !== null">
+  <div>
+    <button  type="button" class="btn btn-primary" (click)="addRecipe()">Add a recipe</button>
+  </div>
   <div class="card-deck">
     <div class="card text-primary border-primary mb-3" style="width: 20rem;" *ngFor="let recipe of recipeClient.recipes | async">
       <div class="card-body">
         <h4 class="card-title">{{recipe.title}}</h4>
         <p class="card-text">{{recipe.description}}</p>
+      </div>
+      <div class="card-footer">
         <a href="#" class="card-link">Edit</a>
         <a href="#" class="card-link">Delete</a>
       </div>

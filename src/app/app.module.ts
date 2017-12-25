@@ -13,6 +13,7 @@ import { PersistenceService } from "angular-persistence/src/services/persistence
 import { HttpClientModule } from "@angular/common/http";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { RegisterComponent } from './auth/register/register.component';
+import { AddRecipeComponent } from './add-recipe/add-recipe.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -25,7 +26,8 @@ const routes: Routes = [
     AppNavbarComponent,
     RecipesListComponent,
     SigninComponent,
-    RegisterComponent
+    RegisterComponent,
+    AddRecipeComponent
   ],
   imports: [BrowserModule, ReactiveFormsModule, FormsModule, HttpClientModule,
     NgbModule.forRoot(),
@@ -33,6 +35,6 @@ const routes: Routes = [
   ],
   providers: [PersistenceService, AuthService, RecipeService],
   bootstrap: [AppComponent],
-  entryComponents: [SigninComponent, RegisterComponent]
+  entryComponents: [SigninComponent, RegisterComponent, AddRecipeComponent]
 })
 export class AppModule {}

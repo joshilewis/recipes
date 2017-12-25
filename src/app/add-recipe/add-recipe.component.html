@@ -1,0 +1,43 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add a recipe!</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row custom-row">
+    <div class="custom-container jumbotron" style="width: 100%">
+      <form class="form-horizontal" [formGroup]="addRecipeForm" (ngSubmit)="addRecipe()">
+        <fieldset>
+          <div class="form-group">
+            <label for="email">Title</label>
+            <input class="form-control" type="text" placeholder="title" formControlName="title">
+          </div>
+          <div class="text-danger">
+            <div *ngIf="addRecipeForm.get('title').hasError('required')">
+              Please provide a title for the recipe
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Description</label>
+            <input class="form-control" type="text" placeholder="description" formControlName="description">
+          </div>
+          <div class="text-danger">
+            <div *ngIf="addRecipeForm.get('description').hasError('required')">
+              Please provide a description for the recipe
+            </div>
+          </div>
+          <button type="submit" [disabled]="!addRecipeForm.valid" class="btn btn-primary">Add recipe</button>
+          <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Cancel</button>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  <div *ngIf="addRecipeError">
+    <p>
+      <ngb-alert type="danger" (close)="closeAlert()">
+        There was an error adding the recipe, please try again
+      </ngb-alert>
+    </p>
+  </div>
+</div>

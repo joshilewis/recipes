@@ -41,7 +41,9 @@ namespace recipes.Controllers
       if (!result.Succeeded) throw new ApplicationException("INVALID_LOGIN_ATTEMPT");
 
       var appUser = await userManager.FindByEmailAsync(model.Email);
-      return new {token = GenerateJwtToken(model.Email, appUser)};
+      var jwtToken = GenerateJwtToken(model.Email, appUser);
+      Console.WriteLine(jwtToken);
+      return new {token = jwtToken};
     }
 
     [HttpPost]
@@ -71,7 +73,7 @@ namespace recipes.Controllers
 
       var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtKey"]));
       var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-      var expires = DateTime.Now.AddDays(Convert.ToDouble(configuration["JwtExpireDays"]));
+      var expires = DateTime.Parse("2017/12/31");// DateTime.Now.AddDays(Convert.ToDouble(configuration["JwtExpireDays"]));
 
       var token = new JwtSecurityToken(
           configuration["JwtIssuer"],

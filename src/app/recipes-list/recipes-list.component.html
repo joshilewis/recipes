@@ -9,7 +9,6 @@
     <div class="card text-primary border-primary mb-3" style="width: 20rem;" *ngFor="let recipe of recipeClient.recipes | async">
       <div class="card-body" (click)="showRecipe(recipe)">
         <h4 class="card-title">{{recipe.title}}</h4>
-        <p class="card-text">{{recipe.description}}</p>
       </div>
       <div class="card-footer">
         <button class="btn btn-primary" (click)="editRecipe(recipe)">Edit</button>

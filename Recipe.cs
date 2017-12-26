@@ -25,4 +25,21 @@ namespace Recipes
     {
     }
   }
+
+  public class RecipeSummary
+  {
+    [JsonProperty(PropertyName = "id")]
+    public Guid Id { get; set; }
+    public string Title { get; set; }
+
+    public RecipeSummary(Guid id, string title)
+    {
+      Id = id;
+      Title = title;
+    }
+
+    public RecipeSummary()
+    {
+    }
+  }
 }

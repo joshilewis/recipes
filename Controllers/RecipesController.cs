@@ -34,21 +34,13 @@ namespace recipes.Controllers
 
     [Authorize]
     [HttpGet]
-    public async Task<IEnumerable<Recipe>> GetAsync()
+    public IEnumerable<dynamic> Get()
     {
       var email = User.FindFirst("sub").Value;
-      var query = client.CreateDocumentQuery<Recipe>(
-          documentCollectionUri)
-        .Where(x => x.OwnerEmail == email)
-        .AsDocumentQuery();
 
-      List<Recipe> results = new List<Recipe>();
-      while (query.HasMoreResults)
-      {
-        results.AddRange(await query.ExecuteNextAsync<Recipe>());
-      }
-
-      return results;
+      return client.CreateDocumentQuery<dynamic>(documentCollectionUri,
+            $"SELECT r.id, r.Title AS title FROM recipes r WHERE r.OwnerEmail = '{email}'")
+          .AsEnumerable();
     }
 
     [Authorize]

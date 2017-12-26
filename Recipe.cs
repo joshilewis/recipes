@@ -13,33 +13,19 @@ namespace Recipes
     public string Title { get; set; }
     public string Description { get; set; }
     public string OwnerEmail { get; set; }
+    public string Notes { get; set; }
 
-    public Recipe(string title, string description)
+    public Recipe(string title, string description, string notes)
     {
       Id = Guid.NewGuid();
       Title = title;
       Description = description;
+      Notes = notes;
     }
 
     public Recipe()
     {
-    }
-  }
-
-  public class RecipeSummary
-  {
-    [JsonProperty(PropertyName = "id")]
-    public Guid Id { get; set; }
-    public string Title { get; set; }
-
-    public RecipeSummary(Guid id, string title)
-    {
-      Id = id;
-      Title = title;
-    }
-
-    public RecipeSummary()
-    {
+      Id = Guid.NewGuid();
     }
   }
 }

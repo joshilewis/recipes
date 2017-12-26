@@ -27,6 +27,7 @@ export class EditRecipeComponent implements OnInit {
     ]),
     id: new FormControl("Id", []),
     ownerEmail: new FormControl("ownerEmail", []),
+    notes: new FormControl("notes", []),
   });
   editRecipeError: boolean = false;
 

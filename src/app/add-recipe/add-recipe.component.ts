@@ -23,7 +23,8 @@ export class AddRecipeComponent implements OnInit {
     ]),
     description: new FormControl("Description", [
       Validators.required
-    ])
+    ]),
+    notes:new FormControl("notes"),
   });
   addRecipeError: boolean = false;
 

@@ -29,6 +29,10 @@
               Please provide a description for the recipe
             </div>
           </div>
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea class="form-control" type="text" placeholder="Notes" formControlName="notes"></textarea>
+          </div>
           <button type="submit" [disabled]="!editRecipeForm.valid" class="btn btn-primary">Save</button>
           <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Cancel</button>
         </fieldset>

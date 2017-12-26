@@ -14,8 +14,7 @@ export class RecipeService {
   }
 
   private getRecipes(): Observable<Recipe[]> {
-    return this.httpClient.get<Recipe[]>("http://localhost:61978/api/recipes", this.getAuthHeader())
-      .pipe(tap(x => console.log(x)));
+    return this.httpClient.get<Recipe[]>("http://localhost:61978/api/recipes", this.getAuthHeader());
   }
 
   public getRecipe(recipeId: string): Observable<Recipe> {

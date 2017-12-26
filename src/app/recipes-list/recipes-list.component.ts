@@ -26,7 +26,7 @@ export class RecipesListComponent implements OnInit {
 
   showRecipe(recipe) {
     const modalRef = this.modalService.open(RecipeDetailsComponent);
-    modalRef.componentInstance.recipe = recipe;
+    modalRef.componentInstance.recipeId = recipe.id;
   }
 
   editRecipe(recipe) {

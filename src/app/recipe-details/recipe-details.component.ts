@@ -13,10 +13,10 @@ export class RecipeDetailsComponent implements OnInit {
   public recipeId: string;
   public recipe: Observable<Recipe>;
   constructor(public recipeClient: RecipeService, public activeModal: NgbActiveModal) {
-    this.recipe = this.recipeClient.getRecipe(this.recipeId);
   }
 
   ngOnInit() {
+    this.recipe = this.recipeClient.getRecipe(this.recipeId);
   }
 
 }

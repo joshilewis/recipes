@@ -1,13 +1,20 @@
-<div class="modal-header">
-  <h4 class="modal-title">Details for {{recipe.title}}</h4>
-  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<div class="modal-body">
+<div *ngIf="(recipe | async) as recipe">
+  <div class="modal-header">
+    <h4 class="modal-title">Details for {{recipe.title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
 
-  <div>
-    {{recipe.description}}
+    <div>
+      <h5>Description</h5>
+      <p>{{recipe.description}}</p>
 
+      <h5>Notes</h5>
+      <p>{{recipe.notes}}</p>
+
+
+    </div>
   </div>
 </div>

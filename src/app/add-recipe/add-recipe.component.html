@@ -20,12 +20,16 @@
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea class="form-control" type="" placeholder="description" formControlName="description" ></textarea>
+            <textarea class="form-control" type="" placeholder="description" formControlName="description"></textarea>
           </div>
           <div class="text-danger">
             <div *ngIf="addRecipeForm.get('description').hasError('required')">
               Please provide a description for the recipe
             </div>
+          </div>
+          <div class="form-group">
+            <label for="notes">Notes</label>
+            <textarea class="form-control" type="" placeholder="Notes" formControlName="notes"></textarea>
           </div>
           <button type="submit" [disabled]="!addRecipeForm.valid" class="btn btn-primary">Add recipe</button>
           <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Cancel</button>

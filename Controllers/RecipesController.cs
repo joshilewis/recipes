@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -21,6 +22,10 @@ namespace recipes.Controllers
     private readonly IDocumentClient client;
     private readonly UserManager<DocumentDbIdentityUser> userManager;
 
+    private const string DatabaseId = "recipes_demo";
+    private const string CollectionId = "recipes";
+    private readonly Uri documentCollectionUri = UriFactory.CreateDocumentCollectionUri(DatabaseId, CollectionId);
+
     public RecipesController(IDocumentClient client, UserManager<DocumentDbIdentityUser> userManager)
     {
       this.client = client;
@@ -33,7 +38,7 @@ namespace recipes.Controllers
     {
       var email = User.FindFirst("sub").Value;
       var query = client.CreateDocumentQuery<Recipe>(
-          UriFactory.CreateDocumentCollectionUri("recipes_demo", "recipes"))
+          documentCollectionUri)
         .Where(x => x.OwnerEmail == email)
         .AsDocumentQuery();
 
@@ -48,9 +53,11 @@ namespace recipes.Controllers
 
     [Authorize]
     [HttpGet("{id}")]
-    public string GetAsync(int id)
+    public async Task<Recipe> GetAsync(Guid id)
     {
-      return "value";
+      var response = await client.ReadDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id.ToString()));
+      Recipe recipe = (dynamic) response.Resource;
+      return recipe;
     }
 
     [Authorize]
@@ -59,7 +66,7 @@ namespace recipes.Controllers
     {
       recipe.OwnerEmail = User.FindFirst("sub").Value;
       await client.CreateDocumentAsync(
-        UriFactory.CreateDocumentCollectionUri("recipes_demo", "recipes"), recipe);
+        documentCollectionUri, recipe);
     }
 
     // PUT api/<controller>/5
@@ -72,8 +79,9 @@ namespace recipes.Controllers
     // DELETE api/<controller>/5
     [Authorize]
     [HttpDelete("{id}")]
-    public void Delete(int id)
+    public async void Delete(Guid id)
     {
+      await client.DeleteDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id.ToString()));
     }
     
   }

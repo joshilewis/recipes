@@ -7,13 +7,13 @@
   </div>
   <div class="card-deck">
     <div class="card text-primary border-primary mb-3" style="width: 20rem;" *ngFor="let recipe of recipeClient.recipes | async">
-      <div class="card-body">
+      <div class="card-body" (click)="showRecipe(recipe)">
         <h4 class="card-title">{{recipe.title}}</h4>
         <p class="card-text">{{recipe.description}}</p>
       </div>
       <div class="card-footer">
-        <a href="#" class="card-link">Edit</a>
-        <a href="#" class="card-link">Delete</a>
+        <button class="btn btn-primary" (click)="editRecipe()">Edit</button>
+        <button class="btn btn-primary" (click)="deleteRecipe(recipe)">Delete</button>
       </div>
     </div>
   </div>

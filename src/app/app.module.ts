@@ -14,6 +14,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { RegisterComponent } from './auth/register/register.component';
 import { AddRecipeComponent } from './add-recipe/add-recipe.component';
+import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full" },
@@ -27,7 +28,8 @@ const routes: Routes = [
     RecipesListComponent,
     SigninComponent,
     RegisterComponent,
-    AddRecipeComponent
+    AddRecipeComponent,
+    RecipeDetailsComponent
   ],
   imports: [BrowserModule, ReactiveFormsModule, FormsModule, HttpClientModule,
     NgbModule.forRoot(),
@@ -35,6 +37,6 @@ const routes: Routes = [
   ],
   providers: [PersistenceService, AuthService, RecipeService],
   bootstrap: [AppComponent],
-  entryComponents: [SigninComponent, RegisterComponent, AddRecipeComponent]
+  entryComponents: [SigninComponent, RegisterComponent, AddRecipeComponent, RecipeDetailsComponent]
 })
 export class AppModule {}

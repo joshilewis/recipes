@@ -72,8 +72,9 @@ namespace recipes.Controllers
     // PUT api/<controller>/5
     [Authorize]
     [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
+    public async void Put(Guid id, [FromBody] Recipe recipe)
     {
+      await client.ReplaceDocumentAsync(UriFactory.CreateDocumentUri(DatabaseId, CollectionId, id.ToString()), recipe);
     }
 
     // DELETE api/<controller>/5

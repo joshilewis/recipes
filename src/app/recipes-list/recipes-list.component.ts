@@ -4,6 +4,7 @@ import { AuthService } from "../infra/auth.service";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { AddRecipeComponent } from "../add-recipe/add-recipe.component";
 import {RecipeDetailsComponent} from "../recipe-details/recipe-details.component";
+import {EditRecipeComponent} from "../edit-recipe/edit-recipe.component";
 
 @Component({
   selector: "app-recipes-list",
@@ -24,10 +25,13 @@ export class RecipesListComponent implements OnInit {
   }
 
   showRecipe(recipe) {
-    const modalRef = this.modalService.open(RecipeDetailsComponent, {size: "lg"});
+    const modalRef = this.modalService.open(RecipeDetailsComponent);
     modalRef.componentInstance.recipe = recipe;
-    //this.recipeClient.getRecipe(recipe)
-    //  .subscribe(x => console.log(x));
+  }
+
+  editRecipe(recipe) {
+    const modalRef = this.modalService.open(EditRecipeComponent);
+    modalRef.componentInstance.recipeId = recipe.id;
   }
 
   deleteRecipe(recipe) {

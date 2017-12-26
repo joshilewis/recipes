@@ -26,6 +26,11 @@ export class RecipeService {
       .toPromise();
   }
 
+  public saveRecipe(recipe: Recipe): Promise<Object> {
+    return this.httpClient.put(`http://localhost:61978/api/recipes/${recipe.id}`, recipe, this.getAuthHeader())
+      .toPromise();
+  }
+
   public deleteRecipe(recipe: Recipe): Promise<Object> {
     return this.httpClient.delete(`api/recipes/${recipe.id}`, this.getAuthHeader())
       .toPromise();

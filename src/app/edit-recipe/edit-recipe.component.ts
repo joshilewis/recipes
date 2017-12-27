@@ -5,7 +5,8 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  FormBuilder
+  FormBuilder,
+  FormArray
   } from "@angular/forms";
 import { RecipeService } from "../client/recipe.service";
 import { Observable } from 'rxjs/Observable';
@@ -28,6 +29,7 @@ export class EditRecipeComponent implements OnInit {
     id: new FormControl("Id", []),
     ownerEmail: new FormControl("ownerEmail", []),
     notes: new FormControl("notes", []),
+    steps: this.builder.array([]),
   });
   editRecipeError: boolean = false;
 
@@ -38,6 +40,10 @@ export class EditRecipeComponent implements OnInit {
     this.recipeService.getRecipe(this.recipeId)
       .subscribe(x => {
         this.recipe = x;
+        const control = this.editRecipeForm.get("steps") as FormArray;
+        this.recipe.steps.forEach(y => {
+          control.push(this.builder.group({step: [y]}));
+        });
         this.editRecipeForm.setValue(x);
       });
   }

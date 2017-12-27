@@ -5,7 +5,8 @@ import {
   FormGroup,
   FormControl,
   Validators,
-  FormBuilder
+  FormBuilder,
+  FormArray
 } from "@angular/forms";
 import { RecipeService } from "../client/recipe.service";
 
@@ -24,7 +25,8 @@ export class AddRecipeComponent implements OnInit {
     description: new FormControl("Description", [
       Validators.required
     ]),
-    notes:new FormControl("notes"),
+    notes: new FormControl("notes"),
+    steps: this.builder.array([this.initStep()]),
   });
   addRecipeError: boolean = false;
 
@@ -48,5 +50,16 @@ export class AddRecipeComponent implements OnInit {
 
   closeAlert() {
     this.addRecipeError = false;
+  }
+
+  initStep() {
+    return this.builder.group({
+      step: [""]
+    });
+  }
+
+  addStep() {
+    const control = this.addRecipeForm.get("steps") as FormArray;
+    control.push(this.initStep());
   }
 }

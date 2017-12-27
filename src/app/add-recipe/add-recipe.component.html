@@ -27,6 +27,17 @@
               Please provide a description for the recipe
             </div>
           </div>
+          <div formArrayName="steps">
+            <div *ngFor="let step of addRecipeForm.controls.steps.controls; let i=index">
+              <div>
+                Step {{i + 1}}
+              </div>
+              <div [formGroupName]="i">
+                <textarea formControlName="step"></textarea>
+              </div>
+            </div>
+          </div>
+          <button type="button" class="btn btn-primary" (click)="addStep()">Add step</button>
           <div class="form-group">
             <label for="notes">Notes</label>
             <textarea class="form-control" type="" placeholder="Notes" formControlName="notes"></textarea>

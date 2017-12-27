@@ -29,7 +29,7 @@ steps:
   displayName: "angular build"
   inputs:
     filename: "ng"
-    arguments: "build"
+    arguments: "build --prod"
 
 - task: dotNetCoreCLI@1
   inputs:

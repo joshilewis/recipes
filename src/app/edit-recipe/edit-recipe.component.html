@@ -30,7 +30,7 @@
             </div>
           </div>
           <div formArrayName="steps">
-            <div *ngFor="let step of editRecipeForm.controls.steps.controls; let i=index">
+            <div *ngFor="let step of editRecipeForm.get('steps')['controls']; let i=index">
               <div>
                 Step {{i + 1}}
               </div>

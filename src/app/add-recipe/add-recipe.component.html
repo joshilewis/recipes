@@ -28,7 +28,7 @@
             </div>
           </div>
           <div formArrayName="steps">
-            <div *ngFor="let step of addRecipeForm.controls.steps.controls; let i=index">
+            <div *ngFor="let step of addRecipeForm.get('steps')['controls']; let i=index">
               <div>
                 Step {{i + 1}}
               </div>

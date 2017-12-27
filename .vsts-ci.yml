@@ -1,12 +1,12 @@
 steps:
 
-- task: dotNetCoreCLI@1
+- task: dotNetCoreCLI@2
   inputs:
     command: restore
     projects: "**/*.csproj"
   displayName: dotnet restore
 
-- task: dotNetCoreCLI@1
+- task: dotNetCoreCLI@2
   inputs:
     command: build
     projects: "**/*.csproj"
@@ -31,18 +31,19 @@ steps:
     filename: "ng"
     arguments: "build --prod"
 
-- task: dotNetCoreCLI@1
+- task: dotNetCoreCLI@2
   inputs:
     command: test 
     projects: "**/*Tests/*.csproj"
     arguments: --configuration release
   displayName: dotnet build
 
-- task: dotNetCoreCLI@1
+- task: dotNetCoreCLI@2
   inputs:
     command: publish
     arguments: --configuration release --output $(Build.ArtifactStagingDirectory)
     zipAfterPublish: true
+    publishWebProjects: true
   displayName: dotnet publish
 
 - task: publishBuildArtifacts@1
